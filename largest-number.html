@@ -81,11 +81,29 @@
 <script>
 const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 
+// The number climbs by 3 every second and never stops or resets. It is
+// derived from real elapsed time since a fixed anchor, so a refresh (or
+// reopening the page days later) continues from where it should be rather
+// than starting over. BigInt is used because the value exceeds
+// Number.MAX_SAFE_INTEGER, so ordinary numbers would lose precision.
+const START_VALUE = 9007199254740991n;
+const ANCHOR_MS = 1792968627851;
+
+function currentNumber() {
+  const elapsedSeconds = Math.max(0, Math.floor((Date.now() - ANCHOR_MS) / 1000));
+  return START_VALUE + 3n * BigInt(elapsedSeconds);
+}
+
+function withCommas(n) {
+  return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
 function tick() {
   const now = new Date();
   document.getElementById("time").textContent = now.toLocaleTimeString();
   document.getElementById("date").textContent =
     months[now.getMonth()] + " " + now.getDate() + ", " + now.getFullYear();
+  document.getElementById("bignumber").textContent = withCommas(currentNumber());
 }
 tick();
 setInterval(tick, 1000);
