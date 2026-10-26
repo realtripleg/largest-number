@@ -86,12 +86,12 @@ const months = ["January","February","March","April","May","June","July","August
 // reopening the page days later) continues from where it should be rather
 // than starting over. BigInt is used because the value exceeds
 // Number.MAX_SAFE_INTEGER, so ordinary numbers would lose precision.
-const START_VALUE = 9007199254741693n;
+const START_VALUE = 9007199254578987654578987543456789876578909876567898765456789876545789876578985976987678976598659859578954854787494848949547898494943948943893939383854578747874395494894741693n;
 const ANCHOR_MS = 1792968862344;
 
 function currentNumber() {
   const elapsedSeconds = Math.max(0, Math.floor((Date.now() - ANCHOR_MS) / 1000));
-  return START_VALUE + 21n * BigInt(elapsedSeconds);
+  return START_VALUE + 9007199254578987654578987543456789876578909876567898765456789876545789876578985976987678976598659859578954854787494848949547898494943948943893939383854578747874395494894741693n * BigInt(elapsedSeconds);
 }
 
 function withCommas(n) {
